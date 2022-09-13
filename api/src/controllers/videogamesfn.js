@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogame } = require('../db');
+const { Videogame, Genro } = require('../db');
 const { Op } = require('sequelize');
 const { Key } = process.env;
 
@@ -35,7 +35,14 @@ getVideogames = async() => {
                 }
             })//fin getapi
             
-        const getbd = await Videogame.findAll();
+        const getbd = await Videogame.findAll({
+                include: {
+                    model: Genro,
+                    attributes: ['name'],
+                    through: {attributes:[]},
+                    //required:true
+                },
+        });//Traer los generos de la bd
         console.log(getbd);
         return [...mapapi,...getbd];
 
