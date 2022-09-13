@@ -19,10 +19,12 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const { chargeGenres } = require('../api/src/controllers/genrofn')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
+    chargeGenres();
     console.log('%s listening, ready to serve', 'http://localhost:3001'); // eslint-disable-line no-console
   });
 });
