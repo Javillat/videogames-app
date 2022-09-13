@@ -10,6 +10,7 @@ const routerMain = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 routerMain.use('/videogames', videogame);
+routerMain.use('/genres', genro);
 // routerMain.use('/genro', genro);
 
 
