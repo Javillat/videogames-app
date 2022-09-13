@@ -16,25 +16,26 @@ const { Key } = process.env;
 
 getVideogames = async() => {
     try {
-        //const videogames_array = [];
-        //for (let i = 1; i <= 5; i++){
-            const getapi = (await axios.get(`https://api.rawg.io/api/games?key=${Key}&page_size=100`)).data.results;
+        const videogames_array = [];
+        for (let i = 1; i <= 5; i++){
+            const getapi = (await axios.get(`https://api.rawg.io/api/games?key=${Key}&page=${i}`)).data.results;
             //console.log(getapi);
             //videogames_array.push(getapi);
-        //}
             const mapapi = getapi.map(item => {
                 return {
                     id: item.id,
                     image: item.background_image,
                     name: item.name,
                     genres: item.genres.map(genre =>  genre.name)
-                        // return {
+                    // return {
                         //     name: genre.name
                         // }
                         //)//fin genres
-                }
-            })//fin getapi
-            
+                    }
+                })//fin getapi
+                videogames_array.push(mapapi);
+            }
+                
         const getbd = await Videogame.findAll({
                 include: {
                     model: Genro,
@@ -43,8 +44,9 @@ getVideogames = async() => {
                     //required:true
                 },
         });//Traer los generos de la bd
-        console.log(getbd);
-        return [...mapapi,...getbd];
+        //console.log(getbd);
+        const tofront = videogames_array.flat();
+        return [...tofront,...getbd];
 
     } catch (error) {
         console.log(error);   
@@ -77,6 +79,28 @@ videogameById = async(req, res) => {
     
 }
 //=============================================================
+
+videogameByName = async(req, res) => {
+    try {
+        const { name } = req.query;
+        if(name){
+            const videogames = await getVideogames();
+            const filterName = videogames.filter(vgame => {
+                const datalower = vgame.name.toLowerCase();
+                const namelower = name.toLowerCase();
+                if (datalower.includes(namelower)) {
+                    return videogames;
+                }
+            });
+            filterName.length ? res.status(200).send(filterName.splice(0,15)) : res.status(404).send('Game not found');
+        }else{
+            return res.status(404).send('No search query parameter');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    //filterName.length ? res.status(200).send(filterName.splice(0,15)) : res.status(404).send('Not Found');
+}
 
 /**
  * Endpoint que trae desde el front, recogida desde un formulario controlado, y enviada por body los parametros necesarios para guardar 
@@ -133,4 +157,5 @@ module.exports = {
     allVideogames,
     videogameById,
     postVideogames,
+    videogameByName,
 }
