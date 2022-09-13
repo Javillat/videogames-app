@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Videogames, Genro } = require('../db');
+const { Videogame } = require('../db');
 const { Op } = require('sequelize');
 const { Key } = process.env;
 
@@ -16,26 +16,34 @@ const { Key } = process.env;
 
 getVideogames = async() => {
     try {
-        const getapi = (await axios.get(`https://api.rawg.io/api/games?key=${Key}`)).data.results;
-        console.log(getapi);
-        const mapapi = getapi.map(item => {
-            return {
-                image: item.background_image,
-                name: item.name,
-                genres: item.genres.map(genre => {
-                    return {
-                        name: genre.name
-                    }
-                })
-            }
-        })
-        //const getbd = await Videogames.findAll()
-        return [...mapapi];
+        //const videogames_array = [];
+        //for (let i = 1; i <= 5; i++){
+            const getapi = (await axios.get(`https://api.rawg.io/api/games?key=${Key}&page_size=100`)).data.results;
+            //console.log(getapi);
+            //videogames_array.push(getapi);
+        //}
+            const mapapi = getapi.map(item => {
+                return {
+                    id: item.id,
+                    image: item.background_image,
+                    name: item.name,
+                    genres: item.genres.map(genre =>  genre.name)
+                        // return {
+                        //     name: genre.name
+                        // }
+                        //)//fin genres
+                }
+            })//fin getapi
+            
+        const getbd = await Videogame.findAll();
+        console.log(getbd);
+        return [...mapapi,...getbd];
 
     } catch (error) {
         console.log(error);   
     }
 }
+//==============================================================
 
 /**
  * FUNCIÓN QUE LLAMA A GETVIDEOGAMES TOMA LOS DATOS ASIGNANDOLOS A ITEM 
@@ -49,9 +57,73 @@ allVideogames = async(req, res) => {
     const item = await getVideogames();
     return res.status(200).send(item);
 }
+//==============================================================
 
+/**
+ * FUNCIÓN QUE TRAE DESDE LA API EXTERNA Y LA BD LOS DATOS REFERENTES A UN JUEGO 
+ * EN PARTICULAR, DISCRIMINADO POR EL ID.
+ * 
+ * NOT READY JET
+ */
+
+videogameById = async(req, res) => {
+    
+}
+//=============================================================
+
+/**
+ * Endpoint que trae desde el front, recogida desde un formulario controlado, y enviada por body los parametros necesarios para guardar 
+ * información dentro de la base de datos.
+ * 
+ * _isAttribute: [Function (anonymous)],
+ * getGenros: [Function (anonymous)],
+ * countGenros: [Function (anonymous)],
+ * hasGenro: [Function (anonymous)],
+ * hasGenros: [Function (anonymous)],
+ * setGenros: [Function (anonymous)],
+ * addGenro: [Function (anonymous)],
+ * addGenros: [Function (anonymous)],
+ * removeGenro: [Function (anonymous)],
+ * removeGenros: [Function (anonymous)],
+ * createGenro: [Function (anonymous)]
+ * 
+ * READY
+ *
+ */
+
+postVideogames = async(req, res) => {
+    const { name, description, image, released, rating, platforms, genreid } = req.body;
+    try {
+        const findone = await Videogame.findOne({//Buscar en la bd si el nombre existe, sino existe crearlo.
+            where:{name: {[Op.eq]:name}}
+        });
+        if(!findone){
+            const idCount = (await Videogame.count()) + 1;
+            const idString = 'BD-' + idCount;
+            const videogame = await Videogame.create({
+                id: idString,
+                name: name,
+                description: description,
+                image:image,
+                released: released,
+                rating: rating,
+                platforms:platforms
+            })
+            //console.log(videogame.__proto__);
+            await videogame.addGenros(genreid)
+            return res.status(201).send('Videogame succefull created');
+        }else{
+            return res.status(304).json('Videogame already exist into db. Not modyfied');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+//==============================================================
 
 
 module.exports = {
     allVideogames,
+    videogameById,
+    postVideogames,
 }
