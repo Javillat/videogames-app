@@ -64,7 +64,7 @@ getVideogames = async() => {
 
 allVideogames = async(req, res) => {
     const item = await getVideogames();
-    return res.status(200).send(item);
+    return item //res.status(200).send(item);
 }
 //==============================================================
 
@@ -82,19 +82,21 @@ videogameById = async(req, res) => {
 
 videogameByName = async(req, res) => {
     try {
+        const allvideogames = await allVideogames();
         const { name } = req.query;
         if(name){
+            console.log(name);
             const videogames = await getVideogames();
             const filterName = videogames.filter(vgame => {
                 const datalower = vgame.name.toLowerCase();
                 const namelower = name.toLowerCase();
                 if (datalower.includes(namelower)) {
-                    return videogames;
+                    return vgame;
                 }
             });
             filterName.length ? res.status(200).send(filterName.splice(0,15)) : res.status(404).send('Game not found');
         }else{
-            return res.status(404).send('No search query parameter');
+            return res.status(200).send(allvideogames);
         }
     } catch (error) {
         console.log(error);
@@ -154,7 +156,7 @@ postVideogames = async(req, res) => {
 
 
 module.exports = {
-    allVideogames,
+    //allVideogames,
     videogameById,
     postVideogames,
     videogameByName,
