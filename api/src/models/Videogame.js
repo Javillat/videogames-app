@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DOUBLE,
     },
     platforms: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     image: {
       type: DataTypes.STRING,
