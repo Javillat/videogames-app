@@ -10,7 +10,7 @@ const { Key } = process.env;
  * OBTENER LOS DATOS DE LA API EXTERNA Y LA BASE DE DATOS, COMPILARLOS
  * PONERLOS A DISPOSICIÓN DE ALLVIDEOGAMES PARA EL FRONT
  * 
- * NOT READY JET
+ * READY
  * ==============================================================================================
  */
 
@@ -72,14 +72,55 @@ allVideogames = async(req, res) => {
  * FUNCIÓN QUE TRAE DESDE LA API EXTERNA Y LA BD LOS DATOS REFERENTES A UN JUEGO 
  * EN PARTICULAR, DISCRIMINADO POR EL ID.
  * 
- * NOT READY JET
+ * READY
  */
 
 videogameById = async(req, res) => {
-    
+    const { id } = req.params;
+    const idUPPER = id.toUpperCase();
+    try {
+        const getFromBD = await Videogame.findOne({
+            where:{id:idUPPER},
+            include:{
+                model:Genro,
+                attributes:['name'],
+                through:{attributes:[]},
+            }
+        });
+
+        console.log('BD', getFromBD);
+        if (getFromBD) {
+            return res.status(200).send(getFromBD);
+        }else{
+            const getFromAPI = (await axios.get(`https://api.rawg.io/api/games/${idUPPER}?key=${Key}`));
+            console.log(getFromAPI);
+            const { id, name, image, genres, description, released, rating, platforms } = getFromAPI.data;
+            const gotdata = {
+                id:id,
+                name:name,
+                image:image,
+                genres: genres.map(genro => genro.name).join(', '),
+                description:description.replace(/<[^>]*>?/g, ''),
+                released:released,
+                rating:rating,
+                platforms: platforms.map(platform => platform.platform.name).join(', ')
+            }
+            return res.status(200).send(gotdata);
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(404).send(`Id ${id}, not found!!!`)
+    }
 }
 //=============================================================
 
+/**
+ * FUNCIÓN QUE PROCESA LA PETICIÓN DE INFORMACIÓN DESDE LA API EXTERNA Y BD 
+ * DEPENDIENDO DE SI LA PETICIÓN TRAE POR QUERY 'name' PROCESA Y ENVÍA UN FILTRO POR
+ * NOMBRE, DE LO CONTRARIO, ENVÍA TODOS LOS VIDEOJUEGOS.
+ * 
+ * READY 
+ */
 videogameByName = async(req, res) => {
     try {
         const allvideogames = await allVideogames();
@@ -101,12 +142,12 @@ videogameByName = async(req, res) => {
     } catch (error) {
         console.log(error);
     }
-    //filterName.length ? res.status(200).send(filterName.splice(0,15)) : res.status(404).send('Not Found');
 }
 
 /**
  * Endpoint que trae desde el front, recogida desde un formulario controlado, y enviada por body los parametros necesarios para guardar 
  * información dentro de la base de datos.
+ * AGREGA EL ID COMO STRING CON EL PREFIJO BD- MAS UN NUMERO AUTOINCREMENTAL.
  * 
  * _isAttribute: [Function (anonymous)],
  * getGenros: [Function (anonymous)],
