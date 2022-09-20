@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Game from "./Game";
-//import Loading from './Loading';
+import Loading from './Loading';
 import Pagination from './Pagination';
 
 export default function Games(propsHome){
@@ -32,7 +32,7 @@ export default function Games(propsHome){
                 <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
             </span> */}
 
-            {propsHome.videogames !== undefined
+            { propsHome.videogames > 0 || propsHome.videogames !== undefined
             
             ? (currentVideogames.map(videogame => (
                 <div key={videogame.id}>
@@ -44,12 +44,12 @@ export default function Games(propsHome){
                         />
                 </div>
             ))
-            ) : ('No hay videogames') //(<Loading></Loading>)
-            }
-            <div> Pag {currentPage}</div>
-                {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
-                <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
-                {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
+            ) : (<Loading />)//('No hay videogames') //(<Loading></Loading>)
+        }
+        <div> Pag {currentPage}</div>
+            {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
+            <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
+            {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
         </div>
         );
 }
