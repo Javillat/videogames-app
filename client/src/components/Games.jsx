@@ -4,12 +4,12 @@ import Game from "./Game";
 import Pagination from './Pagination';
 
 export default function Games(propsHome){
-    console.log(propsHome);
+    console.log('e ',propsHome.videogames);
     const [currentPage, setCurrentPage] = useState(1);
     const gamesByPage = 15;
     const lastVideogame = currentPage * gamesByPage;
     const firstVideogame = lastVideogame - gamesByPage;
-    const currentVideogames = propsHome.videogames.length ? propsHome.videogames.slice(firstVideogame, lastVideogame) : [];
+    const currentVideogames = (propsHome.videogames !== undefined) ? propsHome.videogames.slice(firstVideogame, lastVideogame) : [];
 
     //console.log('15', currentVideogames);
     const Page = (page) => {
@@ -28,11 +28,11 @@ export default function Games(propsHome){
     }
     return(
         <div>
-            <span>
+            {/* <span>
                 <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
-            </span>
+            </span> */}
 
-            {currentVideogames !== undefined
+            {propsHome.videogames !== undefined
             
             ? (currentVideogames.map(videogame => (
                 <div key={videogame.id}>
@@ -48,7 +48,7 @@ export default function Games(propsHome){
             }
             <div> Pag {currentPage}</div>
                 {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
-                <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
+                <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
                 {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
         </div>
         );
