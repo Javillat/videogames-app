@@ -48,7 +48,7 @@ export default function Games(propsHome){
         }
         <div> Pag {currentPage}</div>
             {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
-            <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
+                <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
             {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
         </div>
         );
