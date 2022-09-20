@@ -94,11 +94,11 @@ videogameById = async(req, res) => {
         }else{
             const getFromAPI = (await axios.get(`https://api.rawg.io/api/games/${idUPPER}?key=${Key}`));
             console.log(getFromAPI);
-            const { id, name, image, genres, description, released, rating, platforms } = getFromAPI.data;
+            const { id, name, background_image, genres, description, released, rating, platforms } = getFromAPI.data;
             const gotdata = {
                 id:id,
                 name:name,
-                image:image,
+                image:background_image,
                 genres: genres.map(genro => genro.name).join(', '),
                 description:description.replace(/<[^>]*>?/g, ''),
                 released:released,
