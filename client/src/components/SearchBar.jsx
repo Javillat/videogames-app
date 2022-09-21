@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from "react";
-import { useDispatch, useSelecto } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getVideogamesByName } from "./redux/actions/Actions";
 
 export default function SearchBar() {
@@ -14,7 +14,7 @@ export default function SearchBar() {
     function HandleSubmitVideogame(event){
         event.preventDefault();
         dispatch(getVideogamesByName(videogameValue));
-        setVideogameName('');
+        setVideogameValue('');
     }
     return(
         <form onSubmit={HandleSubmitVideogame}>
@@ -22,9 +22,9 @@ export default function SearchBar() {
                 type="text"
                 placeholder="Find videogame..."
                 value={videogameValue}
-                onChange={click => setVideogameValue(click.target.validationMessage.i)}
+                onChange={click => setVideogameValue(click.target.value)}
             />
-            <input type='submit' valua='Search videogame' />
+            <input type='submit' valua='Search videogame'/>
         </form>
-    )
-}
+    );
+};
