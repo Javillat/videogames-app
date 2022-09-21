@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Games from "./Games";
+import Nav from "./Nav";
 import { getVideogames } from './redux/actions/Actions';
 
 export default function Home(){
@@ -13,6 +14,7 @@ export default function Home(){
     },[]);
     return(
         <div>
+            <Nav />
             <Games videogames={videogames} />
         </div>
     )
