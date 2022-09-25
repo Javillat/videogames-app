@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getVideogameDetail } from './redux/actions/Actions';
 import { useHistory } from "react-router-dom";
-//import Loading from './Loading';
+import Loading from './Loading';
 
 export default function Details(){
     let { id } = useParams();
@@ -36,6 +36,6 @@ export default function Details(){
             <div><h3>Platforms</h3>{detail.platforms}</div>
         </div>
 
-        ) : ('Loading')
+        ) : (<Loading />)
     );
 };
