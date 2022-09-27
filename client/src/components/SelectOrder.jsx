@@ -20,8 +20,8 @@ export default function SelectOrder(props){
         <select className="select_order_name" 
         onChange={(event)=> orderByName(event)}>
             <option value="" defaultValue="">Sort by Name</option>
-            <option value="DESCENDENT">Ascendent</option>
-            <option value="ASCENDENT">Descendent</option>
+            <option value="DESCENDENT">Descendent</option>
+            <option value="ASCENDENT">Ascendent</option>
         </select>
     )
 }
