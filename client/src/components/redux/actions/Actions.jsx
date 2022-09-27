@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const ORDER_BY_NAME = 'ORDER_BY_NAME'; 
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_RATING = 'ORDER_BY_RATING'; 
 
 
 
@@ -39,6 +40,13 @@ export function getVideogameDetail(id){
 export function orderByNameAction(value){
     return{
         type: 'ORDER_BY_NAME',
+        payload: value
+    }
+}
+
+export function orderByRatingAction(value){
+    return{
+        type:'ORDER_BY_RATING',
         payload: value
     }
 }
