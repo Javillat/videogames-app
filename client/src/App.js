@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import LandingPage from './components/Landing';
 import Home from './components/Home';
 import Details from './components/Details';
-//import './App.css';
+//import '../src/css/App.css';
 
 function App() {
   return (

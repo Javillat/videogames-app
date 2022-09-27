@@ -1,3 +1,5 @@
+//import { combineReducers } from "redux";
+import { ORDER_BY_NAME } from "../actions/Actions";
 
 const initialState = {
     videogames: [],
@@ -21,9 +23,21 @@ function Reducer(state = initialState, action){
                 state,
                 details: action.payload
             }
+        case ORDER_BY_NAME:
+            const order = action.payload === 'ASCENDENT' 
+            ? state.videogames.sort((videogameA,videogameB) => {
+               if(videogameA.name > videogameB.name) return 1;
+            })
+            : state.videogames.sort((videogameA, videogameB) => {
+                if(videogameB.name < videogameA.name) return -1
+            })
+        return{
+            ...state,
+            videogames: order
+        }
+            
     
-        default:
-            return state;
+        default: return state;
     }
 }
 

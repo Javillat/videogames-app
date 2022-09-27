@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Game from "./Game";
-import Loading from './Loading';
+import Nav from "./Nav";
 import Pagination from './Pagination';
+//import Loading from './Loading';
+//import '../css/Games.css';
 
 export default function Games(propsHome){
     console.log('e ',propsHome.videogames);
+    
     const [currentPage, setCurrentPage] = useState(1);
     const gamesByPage = 15;
     const lastVideogame = currentPage * gamesByPage;
@@ -27,7 +30,10 @@ export default function Games(propsHome){
         setCurrentPage(nextPage);
     }
     return(
-        <div>
+        <>
+        <Nav setCurrentPage = {setCurrentPage} />
+            <div className="container">
+
             {/* <span>
                 <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
             </span> */}
@@ -44,12 +50,14 @@ export default function Games(propsHome){
                         />
                 </div>
             ))
-            ) : (<Loading />)//('No hay videogames') //(<Loading></Loading>)
+            ) : null//(<Loading />)//('No hay videogames') //(<Loading></Loading>)
         }
-        <div> Pag {currentPage}</div>
-            {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
-                <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
-            {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
+                <div> Pag {currentPage}</div>
+                {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
+                    <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
+                {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
+        
         </div>
+        </>
         );
 }

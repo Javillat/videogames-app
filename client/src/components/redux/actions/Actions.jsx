@@ -1,5 +1,9 @@
 import axios from "axios";
 
+export const ORDER_BY_NAME = 'ORDER_BY_NAME'; 
+
+
+
 export function getVideogames(){
     return async (dispatch) => {
         const getData = await axios.get('http://localhost:3001/videogames')
@@ -27,5 +31,14 @@ export function getVideogameDetail(id){
             type: 'GET_VIDEOGAME_DETAIL',
             payload: getData.data
         })
+    }
+}
+
+//Filtros
+
+export function orderByNameAction(value){
+    return{
+        type: 'ORDER_BY_NAME',
+        payload: value
     }
 }

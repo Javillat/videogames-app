@@ -5,6 +5,7 @@ import Games from "./Games";
 import Loading from "./Loading";
 import Nav from "./Nav";
 import { getVideogames } from './redux/actions/Actions';
+import  orderByName  from '../components/helpers/Selecters'
 //import '../css/Home.css'
 
 export default function Home(){
@@ -16,11 +17,21 @@ export default function Home(){
     useEffect(()=>{
         dispatch(getVideogames())
     },[]);
+    
+    // function getSearchState(isSearching){
+    //     //alert(isSearching)
+    //     const booleano = isSearching;
+    //     console.log('Bar ',isSearching);
+    //     return booleano;
+    // };
+
     console.log(videogames);
     if(videogames == undefined || !videogames.length ) return <Loading />;
+
     return(
         <div>
-            <Nav />
+            {/* <Nav getSearchState={getSearchState}/> */}
+            {/* <Nav /> */}
             <Games videogames={videogames} />
         </div>
     )
