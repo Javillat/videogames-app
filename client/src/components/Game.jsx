@@ -21,6 +21,9 @@ export default function Game(propsGames){
                     <div>
                         <h4>{propsGames.genres}</h4>
                     </div>
+                    <div>
+                        <h4>{propsGames.rating}</h4>
+                    </div>
                 </div>
             </div>
         </div>

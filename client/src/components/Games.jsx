@@ -47,6 +47,7 @@ export default function Games(propsHome){
                         name={videogame.name}
                         genres={videogame.genres}
                         image={videogame.image}
+                        rating={videogame.rating}
                         />
                 </div>
             ))
