@@ -26,7 +26,8 @@ getVideogames = async() => {
                     id: item.id,
                     image: item.background_image,
                     name: item.name,
-                    genres: item.genres.map(genre =>  genre.name).join(', ')
+                    genres: item.genres.map(genre =>  genre.name).join(', '),
+                    rating: item.rating
                     // return {
                         //     name: genre.name
                         // }
