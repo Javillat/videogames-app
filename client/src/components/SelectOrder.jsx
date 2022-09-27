@@ -11,15 +11,17 @@ export default function SelectOrder(props){
     function orderByName(event){
         event.preventDefault()
         dispatch(orderByNameAction(event.target.value));
+        if(event.target.value === 'ASCENDENT')
         props.setCurrentPage(1);
+        else props.setCurrentPage(2);
     }
 
     return(
         <select className="select_order_name" 
         onChange={(event)=> orderByName(event)}>
             <option value="" defaultValue="">Sort by Name</option>
-            <option value="ASCENDENT">Ascendent</option>
-            <option value="DESCENDENT">Descendent</option>
+            <option value="DESCENDENT">Ascendent</option>
+            <option value="ASCENDENT">Descendent</option>
         </select>
     )
 }
