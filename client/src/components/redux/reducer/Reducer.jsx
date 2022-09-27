@@ -29,7 +29,7 @@ function Reducer(state = initialState, action){
                if(videogameA.name > videogameB.name) return 1;
             })
             : state.videogames.sort((videogameA, videogameB) => {
-                if(videogameB.name < videogameA.name) return -1
+                if(videogameA.name < videogameB.name) return -1
             })
         return{
             ...state,
