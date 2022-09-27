@@ -27,9 +27,13 @@ function Reducer(state = initialState, action){
             const order = action.payload === 'ASCENDENT' 
             ? state.videogames.sort((videogameA,videogameB) => {
                if(videogameA.name > videogameB.name) return 1;
+               if(videogameA.name < videogameB.name) return -1;
+               else return 0;
             })
             : state.videogames.sort((videogameA, videogameB) => {
-                if(videogameA.name < videogameB.name) return -1
+                if(videogameA.name > videogameB.name) return -1;
+                if(videogameA.name < videogameB.name) return 1;
+                else return 0;
             })
         return{
             ...state,
