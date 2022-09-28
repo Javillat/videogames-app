@@ -16,7 +16,7 @@ chargeGenres = async(req, res) => {
             console.log('The genres already exist in the bd!!!');
             //return genbd;
         }else{
-            const genapi = (await axios.get('https://api.rawg.io/api/genres?key=a42826a1dd4d4812bfce2f3614450df1')).data.results;
+            const genapi = (await axios.get('https://api.rawg.io/api/genres?key=987cc18ac62140b3b54ad8f435d71aab')).data.results;
             //console.log('api ',genapi);
             const create = genapi.map(item => {
                 return {
