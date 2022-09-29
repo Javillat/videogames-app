@@ -25,6 +25,30 @@ export default function CreateVideogame(){
             });
     },[]);
 
+    const handleChanges = (event) => {
+       setSend({
+        ...send,
+        [event.target.name]:event.target.value
+       })
+    }
+
+    const genresHandler = (event) => {
+        if(!send.genreid.includes(event.target.value))
+        setSend({
+            ...send,
+            genreid:[...send.genreid, event.target.value]
+        })
+        console.log(send.genreid);
+    }
+
+    const platformHandler = (event) => {
+        if(!send.platforms.includes(event.target.value))
+        setSend({
+            ...send,
+            platforms:[...send.platforms. event.target.value]
+        })
+    }
+
     const submitVideogames = (event) => {
         event.preventDefault();
         
@@ -73,15 +97,15 @@ export default function CreateVideogame(){
                     type='text'
                     placeholder='Name...'
                     name='name'
-                    value={input.name}
+                    value={send.name}
                     onChange={clickEvent => handleChanges(clickEvent)}
                 />
 
-                <input 
+                <textarea 
                     type='text'
                     placeholder='Description...'
                     name='description'
-                    value={input.description}
+                    value={send.description}
                     onChange={clickEvent => handleChanges(clickEvent)}
                 />
 
@@ -89,15 +113,15 @@ export default function CreateVideogame(){
                     type='text' 
                     placeholder="Image..." 
                     name="image" 
-                    value={input.image}
+                    value={send.image}
                     onChange = {clickEvent => handleChanges(clickEvent)}
                 />
 
                 <input 
-                    type='text'
+                    type='date'
                     placeholder='Released...'
                     name='released'
-                    value={input.released}
+                    value={send.released}
                     onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
@@ -105,12 +129,15 @@ export default function CreateVideogame(){
                     type='number'
                     placeholder='Rating...'
                     name='rating'
-                    value={input.rating}
+                    value={send.rating}
                     onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
-                <select name="genres" onChange={(event) => genresHandler(event)}>
+                <select name="genreid" onChange={(event) => genresHandler(event)} multiple>
                     <option value="" defaultValue="">Select Genres</option>
+                    {genros.map(genro => (
+                        <option key={genro.id} value={genro.id}>{genro.name}</option>
+                    ))}
                 </select>
 
                 <select name="platform" onChange={(event) => platformHandler(event)}>

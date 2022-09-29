@@ -75,7 +75,7 @@ export default function SelectOrder(props){
 
             <section>
                 <select name="select_genre" 
-                onChange={(event) => filterByGenre(event)}>
+                onChange={(event) => filterByGenre(event)} multiple>
                     <option value="" defaultValue="">Filter by Genro</option>
                     {console.log('select',genros)}
                     {genros.map(genro => ( 
