@@ -8,3 +8,4 @@ export const store = createStore(
     Reducer,
     applyMiddleware(thunk)
 );
+console.log(store.getState());
