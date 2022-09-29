@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 
 export default function CreateVideogame(){
     const dispatch = useDispatch();
@@ -77,7 +78,7 @@ export default function CreateVideogame(){
             return;
         }
         axios.post('http://localhost:3001/videogames', send);
-        alert('Videogames succefull created');
+        alert(`Videogame ${send.name} succefull created`);
         setSend({
             genreid:[],
             name:'',
@@ -90,6 +91,10 @@ export default function CreateVideogame(){
         history.push('/home');
 
     }
+    // const goBack = (event) => {
+    //     <Link to='/home'></Link>
+    //     //history.push('/home');
+    // }
     return(
         <div>
             <form onSubmit={(evt) => submitVideogames(evt)}>
@@ -145,6 +150,8 @@ export default function CreateVideogame(){
                 </select>
                 <input type='submit' value='Create Recipe' />
             </form>
+            <Link to='/home'><button>Go Back</button></Link>
+            
         </div>
     );
 }
