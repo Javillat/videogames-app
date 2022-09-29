@@ -2,6 +2,8 @@ import axios from "axios";
 
 export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_RATING = 'ORDER_BY_RATING'; 
+export const SELECT_BY_GENRE = 'SELECT_BY_GENRE';
+export const SELECT_BY_BD_API = 'SELECT_BY_BD_API';
 
 
 
@@ -50,3 +52,28 @@ export function orderByRatingAction(value){
         payload: value
     }
 }
+
+export function filterByGenreAction(value){
+    return{
+        type:'SELECT_BY_GENRE',
+        payload: value
+    }
+}
+
+export function filterByBdApiAction(value){
+    return{
+        type:'SELECT_BY_BD_API',
+        payload: value
+    }
+}
+
+// export function getGenres(){
+//     return async (dispatch) =>{
+//         const genres = (await axios.get('http://localhost:3001/genres')).data;
+//         dispatch({
+//             type: 'GET_GENRES',
+//             payload: genres
+//         })
+
+//     } 
+// }
