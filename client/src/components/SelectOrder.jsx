@@ -3,7 +3,7 @@ import axios from "axios";
 //import OrderByName from "./helpers/Selecters";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { orderByNameAction, orderByRatingAction, filterByGenre } from "./redux/actions/Actions";
+import { orderByNameAction, orderByRatingAction, filterByGenreAction, filterByBdApiAction } from "./redux/actions/Actions";
 
 export default function SelectOrder(props){
     const dispatch = useDispatch()
@@ -15,6 +15,7 @@ export default function SelectOrder(props){
         if(event.target.value === 'ASCENDENT')
         props.setCurrentPage(1);
         else props.setCurrentPage(2);
+        //props.setCurrentPage(1);
     }
 
     function orderByRating(event){
@@ -24,7 +25,27 @@ export default function SelectOrder(props){
         props.setCurrentPage(2);
         else props.setCurrentPage(1);
     }
+
+    function filterByGenre(event){
+        event.preventDefault();
+        const value = event.target.value;
+        if(value === 'Board Games' || value === 'Educational' || value === 'Card'){
+            alert(`Juegos con genero ${event.target.value} no traidos en los primeros 100 de la API`)
+        }else{
+            dispatch(filterByGenreAction(event.target.value));
+            props.setCurrentPage(1);
+        }
+        // if(event.target.value === 'ASCENDENT')
+        // props.setCurrentPage(1);
+        // else props.setCurrentPage(2);
+    }
     
+    function filterByBdApi(event){
+        event.preventDefault();
+        dispatch(filterByBdApiAction(event.target.value));
+        props.setCurrentPage(2);
+    }
+
     useEffect(()=>{
         axios.get('http://localhost:3001/genres').then((response) =>{
              setGenros(response.data);
@@ -58,10 +79,17 @@ export default function SelectOrder(props){
                     <option value="" defaultValue="">Filter by Genro</option>
                     {console.log('select',genros)}
                     {genros.map(genro => ( 
-                        <option key={genro.id} value={genro.name}>{genro.name}</option>
-                    ))
+                            <option key={genro.id} value={genro.name}>{genro.name}</option>
+                        ))
                     }
-
+                </select>
+            </section>
+            <section>
+                <select name="select_bd_api" 
+                onChange={(event) => filterByBdApi(event)}>
+                    <option value="" defaultValue="">Filter by API/BD</option>
+                    <option value="BD">Filter from BD</option>
+                    <option value="API">Filter from API</option>
                 </select>
             </section>
         </div>

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Games from "./Games";
 import Loading from "./Loading";
-import Nav from "./Nav";
+//import Nav from "./Nav";
 import { getVideogames } from './redux/actions/Actions';
-import  orderByName  from '../components/helpers/Selecters'
+//import  orderByName  from '../components/helpers/Selecters'
+
 //import '../css/Home.css'
 
 export default function Home(){
@@ -13,7 +14,7 @@ export default function Home(){
     //const [isVideogames, setVideogames] = useState(false);
     const dispatch = useDispatch();
     const videogames = useSelector((data) => data.videogames);
-
+    //console.log(store.getState());
     useEffect(()=>{
         dispatch(getVideogames())
     },[]);
