@@ -34,6 +34,7 @@ export default function CreateVideogame(){
     }
 
     const genresHandler = (event) => {
+        //event.preventDefault();
         if(!send.genreid.includes(event.target.value))
         setSend({
             ...send,
@@ -43,10 +44,11 @@ export default function CreateVideogame(){
     }
 
     const platformHandler = (event) => {
+        //event.preventDefault();
         if(!send.platforms.includes(event.target.value))
         setSend({
             ...send,
-            platforms:[...send.platforms. event.target.value]
+            platforms:[...send.platforms, event.target.value]
         })
     }
 
@@ -138,7 +140,7 @@ export default function CreateVideogame(){
                     onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
-                <select name="genreid" onChange={(event) => genresHandler(event)} multiple>
+                <select name="genreid" onChange={(event) => genresHandler(event)}>
                     <option value="" defaultValue="">Select Genres</option>
                     {genros.map(genro => (
                         <option key={genro.id} value={genro.id}>{genro.name}</option>
@@ -147,6 +149,12 @@ export default function CreateVideogame(){
 
                 <select name="platform" onChange={(event) => platformHandler(event)}>
                     <option value="" defaultValue="">Select platforms</option>
+                    <option value="PC">PC</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="PlayStation 5">PlayStation 5</option>
+                    <option value="Xbox 360">Xbox 360</option>
+                    <option value="Atari">Atari</option>
+                    <option value="Nintndo 64">Nintndo 64</option>
                 </select>
                 <input type='submit' value='Create Recipe' />
             </form>
