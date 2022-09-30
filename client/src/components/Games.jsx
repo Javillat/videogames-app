@@ -53,7 +53,7 @@ export default function Games(propsHome){
             ))
             ) : null//(<Loading />)//('No hay videogames') //(<Loading></Loading>)
         }
-                <div> Pag {currentPage}</div>
+                {/* <div> Pag {currentPage}</div> */}
                 {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
                     <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
                 {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
