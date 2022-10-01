@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import SelectOrder from "./SelectOrder";
-//import orderByName from "./helpers/Selecters";
+import '../css/Nav.css';
 
 /**
  * Componente general que se muestra en la ruta del home o principal.
@@ -11,7 +11,7 @@ import SelectOrder from "./SelectOrder";
 
 function Nav(props){
     return(
-        <nav>
+        <nav className="nav">
             <SelectOrder setCurrentPage = {props.setCurrentPage} />
             <SearchBar />
             <Link to = '/create'><button>Create videogame</button></Link>

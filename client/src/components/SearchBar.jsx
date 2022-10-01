@@ -6,6 +6,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getVideogamesByName } from "./redux/actions/Actions";
+import '../css/SearchBar.css'
 
 export default function SearchBar() {
     //console.log(props);
@@ -25,14 +26,16 @@ export default function SearchBar() {
     // console.log('Nav ',props.getSearchState); 
     // console.log(isSearching);
     return(
-        <form onSubmit={HandleSubmitVideogame}>
-            <input
-                type="text"
-                placeholder="Find videogame..."
-                value={videogameValue}
-                onChange={click => setVideogameValue(click.target.value)}
-            />
-            <input type='submit' valua='Search videogame'/>
-        </form>
+        <div className="search_container">
+            <form onSubmit={HandleSubmitVideogame}>
+                <input className="search_input"
+                    type="text"
+                    placeholder="Videogame..."
+                    value={videogameValue}
+                    onChange={click => setVideogameValue(click.target.value)}
+                    />
+                <input type='submit' valua='Search videogame'/>
+            </form>
+        </div>
     );
 };

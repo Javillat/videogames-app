@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
+import '../css/Form.css'
 
 
 export default function CreateVideogame(){
@@ -80,6 +81,10 @@ export default function CreateVideogame(){
             return;
         }
         axios.post('http://localhost:3001/videogames', send);
+        // .catch(function (error){
+        //     if(error.response.status === '304')
+        //         alert('Videogame allready exist into db, not modyfied')
+        // })
         alert(`Videogame ${send.name} succefull created`);
         setSend({
             genreid:[],
@@ -98,9 +103,9 @@ export default function CreateVideogame(){
     //     //history.push('/home');
     // }
     return(
-        <div>
+        <div className="create_videogames">
             <form onSubmit={(evt) => submitVideogames(evt)}>
-                <input 
+                <input className="inputs"
                     type='text'
                     placeholder='Name...'
                     name='name'
@@ -116,7 +121,7 @@ export default function CreateVideogame(){
                     onChange={clickEvent => handleChanges(clickEvent)}
                 />
 
-                <input 
+                <input className="inputs"
                     type='text' 
                     placeholder="Image..." 
                     name="image" 
@@ -124,7 +129,7 @@ export default function CreateVideogame(){
                     onChange = {clickEvent => handleChanges(clickEvent)}
                 />
 
-                <input 
+                <input className="inputs"
                     type='date'
                     placeholder='Released...'
                     name='released'
@@ -132,7 +137,7 @@ export default function CreateVideogame(){
                     onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
-                <input 
+                <input className="inputs"
                     type='number'
                     placeholder='Rating...'
                     name='rating'

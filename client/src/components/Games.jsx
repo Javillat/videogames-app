@@ -3,7 +3,7 @@ import Game from "./Game";
 import Nav from "./Nav";
 import Pagination from './Pagination';
 //import Loading from './Loading';
-//import '../css/Games.css';
+import '../css/Games.css';
 
 export default function Games(propsHome){
     console.log('e ',propsHome.videogames);
@@ -33,31 +33,35 @@ export default function Games(propsHome){
         <>
         <Nav setCurrentPage = {setCurrentPage} />
             <div className="container">
+                <div className="container_games">
 
-            {/* <span>
-                <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
-            </span> */}
 
-            { propsHome.videogames > 0 || propsHome.videogames !== undefined
-            
-            ? (currentVideogames.map(videogame => (
-                <div key={videogame.id}>
-                    <Game
-                        id={videogame.id}
-                        name={videogame.name}
-                        genres={videogame.genres}
-                        image={videogame.image}
-                        rating={videogame.rating}
-                        />
-                </div>
-            ))
-            ) : null//(<Loading />)//('No hay videogames') //(<Loading></Loading>)
-        }
-                {/* <div> Pag {currentPage}</div> */}
-                {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
-                    <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
-                {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
-        
+                    {/* <span>
+                        <Pagination gamesByPage = {gamesByPage} videogames={propsHome.videogames.length} page={Page} />
+                    </span> */}
+
+                    { propsHome.videogames > 0 || propsHome.videogames !== undefined
+                    
+                    ? (currentVideogames.map(videogame => (
+                        <div key={videogame.id}>
+                            <Game
+                                id={videogame.id}
+                                name={videogame.name}
+                                genres={videogame.genres}
+                                image={videogame.image}
+                                rating={videogame.rating}
+                                />
+                        </div>
+                    ))
+                    ) : null//(<Loading />)//('No hay videogames') //(<Loading></Loading>)
+                }
+            </div>
+                    {/* <div> Pag {currentPage}</div> */}
+                <footer> 
+                    {currentPage !== 1 ? <button onClick={prevHandler}>Previous</button> : null}
+                        <Pagination gamesByPage = {gamesByPage} videogames={100} page={Page} />
+                    {currentPage !== 7 ? <button onClick={nextHandler}>Next</button> : null}
+                </footer>
         </div>
         </>
         );

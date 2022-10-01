@@ -1,0 +1,37 @@
+.create_videogames{
+    padding: 16px;
+    background-color: brown;
+}
+input[type=text], input[type=date], input[type=number] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+
+input[type=text]:focus, input[type=date]:focus input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+
+input[type=submit]{
+    border-radius: 20px;
+    background-color: rgb(11, 235, 96);
+    border: none;
+    text-align: center;
+    width: 70%;
+}
+input[type=submit]:hover{
+    transition: cubic-bezier();
+    background-color: rgb(58, 120, 192);
+    border: none;
+    text-align: center;
+    width: 70%;
+}
+
+
+select[type=option]{
+    border-radius: 20px;
+}

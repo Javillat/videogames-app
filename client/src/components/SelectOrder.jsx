@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { orderByNameAction, orderByRatingAction, filterByGenreAction, filterByBdApiAction } from "./redux/actions/Actions";
+import '../css/OrderFilters.css'
 
 export default function SelectOrder(props){
     const dispatch = useDispatch()
@@ -53,9 +54,14 @@ export default function SelectOrder(props){
          })
     },[])
 
+    // useEffect(()=>{
+    //     setCurrentPage(1);
+    // },[videogames])
+    //<==================================================VEEEEEEEEEER
+
     return(
-        <div className="order_selector">
-            <section>
+        <div className="select_filter_container_div">
+            <section className="order_name">
                 <select className="select_order_name" 
                 onChange={(event)=> orderByName(event)}>
                     <option value="" defaultValue="">Sort by Name</option>
@@ -64,7 +70,7 @@ export default function SelectOrder(props){
                 </select>
             </section>
 
-            <section>
+            <section className="order_rating">
                 <select name="selec_order_rating" 
                 onChange={(event) => orderByRating(event)}>
                     <option value="" defaultValue="">Sort by Rating</option>
@@ -73,7 +79,7 @@ export default function SelectOrder(props){
                 </select>
             </section>
 
-            <section>
+            <section className="select_gn">
                 <select name="select_genre" 
                 onChange={(event) => filterByGenre(event)} multiple>
                     <option value="" defaultValue="">Filter by Genro</option>
@@ -84,7 +90,7 @@ export default function SelectOrder(props){
                     }
                 </select>
             </section>
-            <section>
+            <section className="select_bd_api">
                 <select name="select_bd_api" 
                 onChange={(event) => filterByBdApi(event)}>
                     <option value="" defaultValue="">Filter by API/BD</option>

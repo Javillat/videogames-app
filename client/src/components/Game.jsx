@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-//import '../css/Game.css';
+import '../css/Game.css';
 
 export default function Game(propsGames){
     //console.log('Game ',propsGames);

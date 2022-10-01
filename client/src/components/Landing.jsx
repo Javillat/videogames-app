@@ -12,7 +12,7 @@ const LandingPage = () => {
             <video muted autoPlay loop playsInline className='back-video'>
                 <source src={video} type="video/mp4"/>
             </video>
-            <a href="#">https://codepen.io/bhadupranjal/pen/vYLZYqQ</a> 
+            {/* <a href="#">https://codepen.io/bhadupranjal/pen/vYLZYqQ</a>  */}
         </div>
     );
 };

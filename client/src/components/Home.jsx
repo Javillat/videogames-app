@@ -6,8 +6,7 @@ import Loading from "./Loading";
 //import Nav from "./Nav";
 import { getVideogames } from './redux/actions/Actions';
 //import  orderByName  from '../components/helpers/Selecters'
-
-//import '../css/Home.css'
+import '../css/Home.css'
 
 export default function Home(){
     const [isFilter, setFilter] = useState([]);
@@ -18,6 +17,7 @@ export default function Home(){
     useEffect(()=>{
         dispatch(getVideogames())
     },[]);
+    
     
     // function getSearchState(isSearching){
     //     //alert(isSearching)

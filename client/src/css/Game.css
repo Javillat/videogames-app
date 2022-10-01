@@ -50,7 +50,7 @@
 
 .card .face.face2{
     position: relative;
-    background: #fff;
+    background: rgb(16, 163, 189);
     display: flex;
     justify-content: center;
     align-items: center;
