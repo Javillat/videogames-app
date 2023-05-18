@@ -9,17 +9,18 @@ export default function CreateVideogame(){
     const dispatch = useDispatch();
     const history = useHistory();
     //const genres = useSelector(data => data.genres);
-
+    
+    const [error, setError] = useState('There are some errors');
+    const [genros, setGenros] = useState([])
     const [send, setSend] = useState({
         genreid:[],
         name:'',
         description:'',
         image:'',
         released:'',
-        rating:'',
+        rating:0,
         platforms:[]
     });
-    const [genros, setGenros] = useState([])
 
     useEffect(()=>{
         axios.get('http://localhost:3001/genres').then((response) =>{
@@ -28,20 +29,37 @@ export default function CreateVideogame(){
     },[]);
 
     const handleChanges = (event) => {
-       setSend({
+        if(event.target.name === 'name'){
+            setSend( prevState => ({
+             ...prevState,
+             [event.target.name]:event.target.value
+            }))
+    }else if(event.target.name === 'description'){
+        setSend(prevState => ({
+            ...prevState,
+            [event.target.name]:event.target.value
+        }))
+    }else if(event.target.name === 'rating'){
+        setSend(prevState => ({
+            [event.target.name]:event.target.value
+        }))
+    }       
+       setError(validateData({
         ...send,
         [event.target.name]:event.target.value
-       })
+       }))
     }
 
     const genresHandler = (event) => {
         //event.preventDefault();
-        if(!send.genreid.includes(event.target.value))
-        setSend({
-            ...send,
-            genreid:[...send.genreid, event.target.value]
-        })
-        console.log(send.genreid);
+        if(!send.genreid.includes(event.target.value)){
+            setSend({
+                ...send,
+                genreid:[...send.genreid, event.target.value]
+            })
+            console.log(send.genreid);
+        }
+
     }
 
     const platformHandler = (event) => {
@@ -53,29 +71,45 @@ export default function CreateVideogame(){
         })
     }
 
+
+    function validateData(event){//Función de validación
+        //const error = {};
+        console.log(event);
+        if(event.target.name === "name"){
+            if(!send.name){
+                setError('Name required')
+            }
+        }
+
+        setSend({...send, [event.target.name]:event.target.value});
+        console.log(send);
+    }
+
     const submitVideogames = (event) => {
         event.preventDefault();
-        
+        validateData(send)
+        {console.log(event)}
+
         if(!send.genreid){
             alert('Genres are required');
             return;
         }
-        if(!send.name){
-            alert('Name is required');
-            return;
-        }
-        if(!send.description){
-            alert('Description is required');
-            return;
-        }
-        if(!send.released){
-            alert('Release is required');
-            return;
-        }
-        if(!send.rating){
-            alert('Rating is required');
-            return;
-        }
+        // if(!send.name){
+        //     alert('Name is required');
+        //     return;
+        // }
+        // if(!send.description){
+        //     alert('Description is required');
+        //     return;
+        // }
+        // if(!send.released){
+        //     alert('Release is required');
+        //     return;
+        // }
+        // if(!send.rating){
+        //     alert('Rating is required');
+        //     return;
+        // }
         if(!send.platforms){
             alert('Platforms are required');
             return;
@@ -105,12 +139,12 @@ export default function CreateVideogame(){
     return(
         <div className="create_videogames">
             <form onSubmit={(evt) => submitVideogames(evt)}>
-                <input className="inputs"
+                <input className={error & "danger"}
                     type='text'
                     placeholder='Name...'
                     name='name'
                     value={send.name}
-                    onChange={clickEvent => handleChanges(clickEvent)}
+                    onChange={clickEvent => validateData(clickEvent)}
                 />
 
                 <textarea 
@@ -118,7 +152,7 @@ export default function CreateVideogame(){
                     placeholder='Description...'
                     name='description'
                     value={send.description}
-                    onChange={clickEvent => handleChanges(clickEvent)}
+                    //onChange={clickEvent => handleChanges(clickEvent)}
                 />
 
                 <input className="inputs"
@@ -126,7 +160,7 @@ export default function CreateVideogame(){
                     placeholder="Image..." 
                     name="image" 
                     value={send.image}
-                    onChange = {clickEvent => handleChanges(clickEvent)}
+                    //onChange = {clickEvent => handleChanges(clickEvent)}
                 />
 
                 <input className="inputs"
@@ -134,7 +168,7 @@ export default function CreateVideogame(){
                     placeholder='Released...'
                     name='released'
                     value={send.released}
-                    onChange={clickEvent => handleChanges(clickEvent)}   
+                    //onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
                 <input className="inputs"
@@ -142,14 +176,14 @@ export default function CreateVideogame(){
                     placeholder='Rating...'
                     name='rating'
                     value={send.rating}
-                    onChange={clickEvent => handleChanges(clickEvent)}   
+                    //onChange={clickEvent => handleChanges(clickEvent)}   
                 />
 
                 <select name="genreid" onChange={(event) => genresHandler(event)}>
                     <option value="" defaultValue="">Select Genres</option>
                     {genros.map(genro => (
                         <option key={genro.id} value={genro.id}>{genro.name}</option>
-                    ))}
+                    ))}   
                 </select>
 
                 <select name="platform" onChange={(event) => platformHandler(event)}>
@@ -161,7 +195,7 @@ export default function CreateVideogame(){
                     <option value="Atari">Atari</option>
                     <option value="Nintndo 64">Nintndo 64</option>
                 </select>
-                <input type='submit' value='Create Recipe' />
+                <input type='submit' value='Create Videogame' />
             </form>
             <Link to='/home'><button>Go Back</button></Link>
             
